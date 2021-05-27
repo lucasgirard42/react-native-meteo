@@ -11,16 +11,21 @@ const forecastReducer = (state = INITIALE_STATE, action) => {
         ...state,
         forecast: action.forecast,
       };
-    case "UPDATE_LOADER":
+    case "TOGGLE_LOADER":
       return {
         ...state,
-        loader: action.loader,
+        loader: action.status,
       };
     case "UPDATE_INPUT":
       return {
         ...state,
         input: action.input,
       };
+      case 'CLEAR_INPUT':
+        return {
+          ...state,
+          input: action.input,
+        };
     default:
       return state;
   }

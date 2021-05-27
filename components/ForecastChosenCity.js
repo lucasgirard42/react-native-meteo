@@ -6,13 +6,10 @@ class ForecastChoseCity extends Component {
 
 render(){
     return(
-
     <View>
         <Text style={styles.town}> {this.props.city}</Text>
     </View>
     )
-
-
 }
 }
 export default ForecastChoseCity
@@ -23,7 +20,10 @@ const styles = StyleSheet.create({
         fontSize: 62,
         alignSelf:'center',
         justifyContent: "center",
-        fontWeight:'bold'
+        fontWeight:'bold',
+        marginRight:10,
+        marginTop:10,
+
         
         
     }

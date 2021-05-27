@@ -12,11 +12,9 @@ render(){
     <View>
         <ForecastChoseCity city = {this.props.city}/>
         <Text style={styles.date}>{moment(this.props.date).format('ddd Do MMM')}</Text>
-
     </View>
-
     )
-}
+    }
 }
 export default ForecastTitle
 
@@ -26,8 +24,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         alignSelf:'center',
         justifyContent: "center",
-        fontWeight:'bold'
-
+        fontWeight:'bold',
+        marginRight:10,
     }
 })
-// {moment(this.props.date).format('ddd Do MMM')}

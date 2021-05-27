@@ -7,13 +7,13 @@ class ForecastForm extends Component {
 
 render(){
     return (
+        
         <View style={styles.container}>
                 <FontAwesome style={styles.searchIcon} name="search" size={24} color="gray" />
                 <TextInput style={styles.input} 
                         placeholder="Rechercher votre ville"
                         placeholderTextColor="#707070"
-                          
-                        value= {this.props.value} 
+                        value= {this.props.inputValue} 
                         onChange={this.props.onChange} 
                         onSubmitEditing={this.props.onSubmitEditing}
                 />
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
 
     },
     input:{
+        marginTop:30,
         opacity:0.9,
         fontWeight:'bold',
         backgroundColor: 'white',
@@ -49,6 +50,7 @@ const styles = StyleSheet.create({
         elevation: 7,
     },
     searchIcon:{
+        marginTop:30,
         borderTopLeftRadius: 12,
         borderBottomLeftRadius: 12,
         paddingTop: 29,

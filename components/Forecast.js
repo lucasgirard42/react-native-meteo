@@ -2,32 +2,35 @@ import React, { Component } from "react";
 import {
   View,
   StyleSheet,
-  Text,
-  TouchableOpacity,
-  Image,
-  TextInput,
+  SafeAreaView, 
+  ScrollView
 } from "react-native";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { fetchForecast, updateInput } from "../action/forecastAction";
+import {fetchForecast, updateInput } from "../action/forecastAction";
 import ForecastTitle from './ForecastTitle';
 import ForecastForm from './ForecastForm';
 import ForecastResult from './ForecastResult';
 
 
-
 class Forecast extends Component {
+
   render() {
-    return (
-      <View style={styles.container}>
+    return (      
+      <SafeAreaView  style={styles.container}>
+        
         {this.props.forecast &&
         Object.keys(this.props.forecast).length === 0 ? (
-          <ForecastForm placeholder="Rechercher une ville" 
-                       onChange ={(e)=>{this.props.updateInput(e.target.value)}} onSubmitEditing ={(e)=>{this.props.fetchForecast(e.target.value)}} 
-                       value={this.props.input}/>
-        ) : (
           <View>
-              <ForecastTitle  city={this.props.forecast.location.name} 
+          <ForecastForm placeholder="Rechercher une ville" 
+                       onSubmitEditing={(event) => this.props.fetchForecast(event.nativeEvent.text)}
+                       onChangeText= {(text) => {this.props.updateInput(text)}}
+                       value={this.props.inputValue} />
+          </View>
+        ) : (
+          <ScrollView>
+          <View>
+              <ForecastTitle  city={this.props.forecast.location.name}
                               date={this.props.forecast.location.localtime} 
                               />
               <ForecastResult weatherIcon={this.props.forecast.current.weather_icons[0]}
@@ -38,35 +41,43 @@ class Forecast extends Component {
                               windSpeed={this.props.forecast.current.wind_speed}
                               humidity={this.props.forecast.current.humidity}
                               />
-              <ForecastForm placeholder="Rechercher une ville"
-                            onChange ={(e)=>{this.props.updateInput(e.target.value)}} onSubmitEditing ={(e)=>{this.props.fetchForecast(e.target.value)}} 
-                            value={this.props.input}
-                            />
+                  <ForecastForm 
+                                onSubmitEditing={(event) => this.props.fetchForecast(event.nativeEvent.text)}
+                                onChangeText= {(text) => {this.props.updateInput(text)}}
+                                value={this.props.inputValue} 
+                            />  
         </View>
+        </ScrollView>
         )}
-      </View>
+        
+      </SafeAreaView >
     );
   }
 }
 
-
 const mapStateToProps = (state) => {
-  console.log(state.forecastReducer.forecast);
+  console.log(state.forecast);
   return {
-    forecast: state.forecastReducer.forecast,
-    input: state.forecastReducer.input
+    forecast: state.forecast,
+    input: state.input,
+    loader: state.loader,
   };
 };
+
+// const mapStateToProps = (state) => ({
+//   forecast: state.forecastReducer.forecast,
+//   inputValue: state.forecastReducer.inputValue,
+//   loader: state.forecastReducer.loader,
+// })
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       fetchForecast,
       updateInput,
-      
     },
     dispatch
-  );
+  )
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forecast);
@@ -81,56 +92,6 @@ const styles = StyleSheet.create({
 
 
 
-{/* <View style={styles.container}>
-{this.props.forecast &&
-Object.keys(this.props.forecast).length === 0 ? (
-  <TouchableOpacity onPress={this.props.fetchForecast}>
-    <Text>click me</Text>
-  </TouchableOpacity>
-) : (
-  <Text>
-    <Text style={styles.town} >
-    {this.props.forecast.location.name}
-    </Text>
-    {"\n"}
-    {"\n"}
-    {"\n"}
-    {"\n"}
-    <Text style={styles.date}>
-    {this.props.forecast.location.localtime}
-    {"\n"}
-    {"\n"}
-    </Text>
-    <Image
-      style={styles.logo}
-      source={{ uri: this.props.forecast.current.weather_icons[0] }}
-    />
-    <Text>{this.props.forecast.current.weather_descriptions[0]}</Text>
-    {"\n"}
-    {"\n"}
-    {"\n"}
-    {"\n"}
-    <Text>{this.props.forecast.current.temperature} °C</Text>
-    {"\n"}
-    {"\n"}
-    {"\n"}
-    <Text>min {this.props.forecast.current.temperature - 5} °C</Text>
-    {"\n"}
-    {"\n"}
-    {"\n"}
-    <Text>max {this.props.forecast.current.temperature + 5} °C</Text>
-    {"\n"}
-    {"\n"}
-    {"\n"}
-    <Text>{this.props.forecast.current.wind_speed} km/h</Text>
-    {"\n"}
-    {"\n"}
-    {"\n"}
-    <Text>{this.props.forecast.current.humidity} %</Text>
-
-  </Text>
-)}
-</View> */}
 
 
 
@@ -147,22 +108,3 @@ Object.keys(this.props.forecast).length === 0 ? (
 
 
 
-{
-  /* <Text>Roanne</Text>
-        <TouchableOpacity onPress={() => this.props.fetchForecast()}>ta mer </TouchableOpacity>  */
-}
-
-{
-  /* {!this.props.forecast=={}?
-        <TouchableOpacity  onPress={() => this.props.fetchForecast()}>
-                <Text style={{color: '#ff0000'}}>click me</Text>
-        </TouchableOpacity> :
-        <Text>{this.props.forecast.location.name}</Text>
-        }  */
-}
-
-{
-  /* <TouchableOpacity onPress={() => this.props.fetchForecast()}>
-          <Text>click {this.props.forecast.location.name}</Text>
-        </TouchableOpacity> */
-}

@@ -8,18 +8,16 @@ const composeEnhancers = composeWithDevTools({
     // Specify name here, actionsBlacklist, actionsCreators and other options if needed
 });
 
-const middleware = [
-    thunk
-];
-let store = createStore(combineReducers({meteoReducer, forecastReducer}),
-    composeEnhancers(
-        applyMiddleware(...middleware),
-    )
-);
-export default store;
 
-// import {createStore, applyMiddleware, combineReducers} from 'redux';
-// import thunk from 'redux-thunk';
-// import meteoReducer from './reducers/meteoReducer';
+export default createStore(forecastReducer, composeEnhancers(applyMiddleware(thunk)));
 
-// export default createStore (applyMiddleware(thunk), meteoReducer);
+
+// const middleware = [
+//     thunk
+// ];
+// let store = createStore(combineReducers({meteoReducer, forecastReducer}),
+//     composeEnhancers(
+//         applyMiddleware(...middleware),
+//     )
+// );
+// export default store;
