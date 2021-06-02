@@ -45,7 +45,7 @@ export const fetchForecast = (city) => {
   return async dispatch => {
       dispatch(toggleLoader(true));
       try{
-      const response = await fetch ('http://api.weatherstack.com/current?access_key=86e8853f6dca7859be0045fab943096b&query=' + city);
+      const response = await fetch ('http://api.weatherstack.com/current?access_key=86e8853f6dca7859be0045fab943096b&query=npm' + city);
       const forecast = await response.json();
       dispatch(updateForecast(forecast));
       

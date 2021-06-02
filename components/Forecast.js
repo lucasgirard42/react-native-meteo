@@ -22,7 +22,7 @@ class Forecast extends Component {
         {this.props.forecast &&
         Object.keys(this.props.forecast).length === 0 ? (
           <View>
-          <ForecastForm placeholder="Rechercher une ville" 
+          <ForecastForm placeholder="Rechercher une ville !" 
                        onSubmitEditing={(event) => this.props.fetchForecast(event.nativeEvent.text)}
                        onChangeText= {(text) => {this.props.updateInput(text)}}
                        value={this.props.inputValue} />
